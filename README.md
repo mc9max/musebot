@@ -1,6 +1,6 @@
 # Deploy and Host
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.com/deploy/musebot-lite)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.com/deploy/musebot)
 
 **MuseBot Lite** — [MuseBot](https://github.com/yincongcyincong/MuseBot) (1.6k★, MIT, Go 1.24) — is a lightweight open-source AI Secretary that speaks **8 messaging platforms from a single Go binary**: Telegram, Discord, Slack, Lark/Feishu, DingDing, Work WeChat (企业微信), QQ (OneBot), and personal WeChat — with **LLM tool-calling (MCP)**, **RAG over your documents**, **cron-triggered briefings**, **streaming replies**, **image/voice/video generation**, and a built-in **admin dashboard**.
 
@@ -16,7 +16,7 @@ This Lite template ships the whole system in **one container** (the official `ja
 
 ## Why Deploy
 
-MuseBot is one of only a handful of self-hosted AI Secretary projects that covers the Chinese IM ecosystem (WeChat / Work WeChat / Feishu / DingDing / QQ) *and* the Western stack (Telegram / Discord / Slack) **in the same binary**, with **MCP tool-calling + RAG + cron + streaming** in one ~80 MB-Go core process — and it is the **only one on Railway's template list today** (0 existing templates)
+MuseBot is one of only a handful of self-hosted AI Secretary projects that covers the Chinese IM ecosystem (WeChat / Work WeChat / Feishu / DingDing / QQ) *and* the Western stack (Telegram / Discord / Slack) **in the same binary**, with **MCP tool-calling + RAG + cron + streaming** in one Go process — and it is the **only one on Railway's template list today** (0 existing templates)
 
 Shipping it as a single-container Railway template means:
 
@@ -47,6 +47,23 @@ The template ships a minimal `Dockerfile` that starts from the official `jackyin
 
 - **36060** — main bot HTTP API (`/pong`, `/communicate`, `/com/wechat`, `/wechat`, `/qq`, `/onebot`, `/rag/*`, `/cron/*`, `/mcp/*`, `/user/*`, `/log`, `/restart`, `/stop`)
 - **18080** — admin dashboard (`/dashboard`) — manage users, tokens, records, RAG, cron, MCP, logs, restart the bot remotely
+
+## Dependencies for MuseBot Lite
+
+- **Go 1.24** — already compiled into the official `jackyin0822/musebot:v1.0.41` image; no Go toolchain required on Railway
+- **SQLite** — embedded; no companion database service required (MySQL also supported via `DB_TYPE` + `DB_CONF`, but SQLite on a volume is the zero-config default)
+- **ffmpeg / ffprobe** — bundled in the official image for audio + video transcode; no host packages required
+- **Optional egress proxy** — an HTTP(S) proxy (e.g. a SOCKS/HTTP bridge) if `TYPE` points at a region-restricted LLM API **or** if the bot needs to reach Telegram/Discord from a region where they are blocked. Leave blank if you're in a normal region on Railway.
+
+### Deployment Dependencies
+
+None. MuseBot Lite ships everything required in one container:
+
+- **No companion database** — SQLite by default, or bring your own MySQL/Postgres if you want cross-instance sharing.
+- **No companion vector store** — RAG runs against the local vector DB on the volume by default (`VECTOR_DB_TYPE=local`); upgrade to Qdrant / Chroma / Weaviate / Milvus optionally without changing the app.
+- **No companion web server** — the bot's own HTTP server (Gin) on 36060 is the app; the optional admin dashboard is a second process in the same container on 18080.
+- **No companion MCP sidecar** — MCP endpoints are registered at boot via `MCP_CONF_PATH`, and the LLM calls them over stdio or HTTP directly.
+- **One persistent volume** — `/app/data` holds the SQLite file, RAG knowledge corpus, and generated media.
 
 ## Common Use Cases
 
