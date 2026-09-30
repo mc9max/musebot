@@ -170,7 +170,17 @@
       "description": "Which LLM to use. Must match the token you provide. Values: deepseek, openai, gemini, openrouter, orcarouter, ai302, vol, aliyun, chatanywhere",
       "required": true,
       "type": "enumeration",
-      "allowedValues": ["deepseek", "openai", "gemini", "openrouter", "orcarouter", "ai302", "vol", "aliyun", "chatanywhere"],
+      "allowedValues": [
+        "deepseek",
+        "openai",
+        "gemini",
+        "openrouter",
+        "orcarouter",
+        "ai302",
+        "vol",
+        "aliyun",
+        "chatanywhere"
+      ],
       "value": "deepseek"
     },
     {
@@ -294,7 +304,11 @@
       "description": "Language for built-in prompts. Values: en, chinese, russian",
       "required": false,
       "type": "enumeration",
-      "allowedValues": ["en", "chinese", "russian"],
+      "allowedValues": [
+        "en",
+        "chinese",
+        "russian"
+      ],
       "value": "en"
     },
     {
@@ -335,7 +349,10 @@
       "description": "sqlite3 (default, zero-config, recommended) or mysql",
       "required": false,
       "type": "enumeration",
-      "allowedValues": ["sqlite3", "mysql"],
+      "allowedValues": [
+        "sqlite3",
+        "mysql"
+      ],
       "value": "sqlite3"
     },
     {
@@ -383,6 +400,33 @@
       "key": "ALLOWED_GROUP_IDS",
       "displayName": "Whitelist Group IDs",
       "description": "Comma-separated group chat IDs allowed. Empty = allow all. 0 = block all.",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "ALIYUN_TOKEN",
+      "displayName": "Aliyun Token",
+      "description": "Aliyun / DashScope API key (required when TYPE=aliyun / Qwen).",
+      "example": "sk-...",
+      "required": false,
+      "type": "string",
+      "value": "******"
+    },
+    {
+      "key": "HTTP_HOST",
+      "displayName": "HTTP Host",
+      "description": "HTTP listen address. :36060 for a local port, or :$(PORT) to use the Railway-injected port.",
+      "example": ":36060",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "MEDIA_TYPE",
+      "displayName": "Media Provider",
+      "description": "Optional image/video-gen provider for /photo & /video (e.g. vol, aliyun, gemini). Empty = provider default from TYPE.",
+      "example": "",
       "required": false,
       "type": "string",
       "value": ""

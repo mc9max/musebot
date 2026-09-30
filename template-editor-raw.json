@@ -1,0 +1,122 @@
+{
+  "TYPE": {
+    "value": "deepseek",
+    "description": "LLM provider. One of: deepseek, openai, gemini, vol, 302-ai, aliyun, openrouter, orcarouter, chatanywhere. Use the matching *_TOKEN below."
+  },
+  "DEEPSEEK_TOKEN": {
+    "value": "${{secret(32)}}",
+    "description": "DeepSeek API key (required when TYPE=deepseek). Get one at platform.deepseek.com."
+  },
+  "OPENAI_TOKEN": {
+    "value": "",
+    "description": "OpenAI API key (required when TYPE=openai). Optional when using an OpenAI-compatible gateway via LLM_PROXY."
+  },
+  "GEMINI_TOKEN": {
+    "value": "",
+    "description": "Google Gemini API key (required when TYPE=gemini)."
+  },
+  "DEFAULT_MODEL": {
+    "value": "",
+    "description": "Optional. Override the default model for the provider. Empty = provider default."
+  },
+  "DB_TYPE": {
+    "value": "sqlite3",
+    "description": "Database backend: sqlite3 (default, single container) or mysql (companion MySQL service)."
+  },
+  "DB_CONF": {
+    "value": "/app/data/muse_bot.db",
+    "description": "SQLite file path (DB_TYPE=sqlite3). Must sit on the /app/data volume. For mysql use a DSN: user:pass@tcp(host:3306)/db?parseTime=true"
+  },
+  "HTTP_HOST": {
+    "value": ":36060",
+    "description": "HTTP listen address. :36060 for a local health endpoint, or :$(PORT) to use the Railway-injected port."
+  },
+  "KNOWLEDGE_PATH": {
+    "value": "/app/data/knowledge",
+    "description": "RAG knowledge base directory — drop markdown/PDF docs here; '/search <query>' searches them. On the /app/data volume."
+  },
+  "LANG": {
+    "value": "en",
+    "description": "Bot reply language: en, zh, ja, ko, or a 2-letter ISO code."
+  },
+  "USE_TOOLS": {
+    "value": "true",
+    "description": "Enable MCP function-calling / tools. true = on."
+  },
+  "SMART_MODE": {
+    "value": "true",
+    "description": "Smart reply mode (context-aware). true = on."
+  },
+  "IS_STREAMING": {
+    "value": "true",
+    "description": "Stream replies in real time. true = on."
+  },
+  "TOKEN_PER_USER": {
+    "value": "10000",
+    "description": "Per-user rolling token budget per context window."
+  },
+  "MAX_QA_PAIR": {
+    "value": "100",
+    "description": "Max chat-history QA pairs retained per user."
+  },
+  "BOT_NAME": {
+    "value": "musebot",
+    "description": "Bot display name shown to users."
+  },
+  "CHARACTER": {
+    "value": "",
+    "description": "Optional. A persona / system prompt that shapes every reply. Empty = neutral secretary."
+  },
+  "MEDIA_TYPE": {
+    "value": "",
+    "description": "Optional. Image/video-gen provider for /photo & /video (e.g. vol, aliyun, gemini). Empty = provider default from TYPE."
+  },
+  "LLM_PROXY": {
+    "value": "",
+    "description": "Optional. HTTP proxy for LLM API calls (useful when a provider endpoint is region-blocked). e.g. http://host:port"
+  },
+  "TELEGRAM_BOT_TOKEN": {
+    "value": "${{secret(32)}}",
+    "description": "Telegram bot token from @BotFather (enables the Telegram platform)."
+  },
+  "DISCORD_BOT_TOKEN": {
+    "value": "",
+    "description": "Discord bot application token (enables the Discord platform)."
+  },
+  "SLACK_BOT_TOKEN": {
+    "value": "",
+    "description": "Slack bot token (enables the Slack platform)."
+  },
+  "LARK_APP_ID": {
+    "value": "",
+    "description": "Lark / Feishu app ID (enables the Lark platform)."
+  },
+  "LARK_APP_SECRET": {
+    "value": "",
+    "description": "Lark / Feishu app secret (with LARK_APP_ID)."
+  },
+  "DING_CLIENT_ID": {
+    "value": "",
+    "description": "DingTalk client ID (enables the DingTalk platform)."
+  },
+  "DING_CLIENT_SECRET": {
+    "value": "",
+    "description": "DingTalk client secret (with DING_CLIENT_ID)."
+  },
+  "COM_WECHAT_CORP_ID": {
+    "value": "",
+    "description": "Enterprise WeChat corp ID (enables the Work WeChat platform)."
+  },
+  "COM_WECHAT_SECRET": {
+    "value": "",
+    "description": "Enterprise WeChat secret (with COM_WECHAT_CORP_ID)."
+  },
+  "ALIYUN_TOKEN": {
+    "value": "",
+    "description": "Aliyun / DashScope API key (required when TYPE=aliyun — drives the Qwen models)."
+  },
+  "OPEN_ROUTER_TOKEN": {
+    "value": "",
+    "description": "OpenRouter API key (required when TYPE=openrouter)."
+  }
+}
