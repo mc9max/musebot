@@ -33,7 +33,7 @@ Two things are **mandatory** for a working bot — everything else is optional a
 | Variable | Where to get it |
 |---|---|
 | `TELEGRAM_BOT_TOKEN` (or one of the other platform tokens) | [Telegram @BotFather](https://t.me/BotFather) → New bot, or your Discord / Slack / Feishu / Ding / WeChat / QQ console |
-| One LLM token matching `TYPE` (e.g. `DEEPSEEK_TOKEN` for `TYPE=deepseek`) | Provider dashboard (platform list under "## About Hosting") |
+| One LLM token matching `TYPE` (e.g. `DEEPSEEK_TOKEN` for `TYPE=deepseek`) | Provider dashboard (see "## About Hosting") |
 
 Everything else — `BOT_NAME`, `CHARACTER`, `TOKEN_PER_USER`, RAG paths, `*_PROXY`, MCP config, whitelist IDs — has sensible defaults or is off until you set it.
 
@@ -42,6 +42,20 @@ Everything else — `BOT_NAME`, `CHARACTER`, `TOKEN_PER_USER`, RAG paths, `*_PRO
 [https://github.com/yincongcyincong/MuseBot](https://github.com/yincongcyincong/MuseBot) · image: `jackyin0822/musebot:v1.0.41` · template repo: [https://github.com/mc9max/musebot](https://github.com/mc9max/musebot)
 
 The template ships a minimal `Dockerfile` that starts from the official `jackyin0822/musebot:v1.0.41` image and adds a 20-line `entrypoint.sh` that runs as root just long enough to `mkdir -p /app/data` and chown it to `appuser` before `exec`'ing the original supervisord — fixing the "unable to open database file: no such file or directory" crash the official image hits on a fresh Railway volume (the image does not ship `/app/data`, and its apps run as uid 1000 against a root-owned mount).
+
+## About Hosting
+
+| Item | Value |
+|---|---|
+| Runtime | Go 1.24 single binary + admin server, both under supervisord |
+| Image | `jackyin0822/musebot:v1.0.41` (~228 MB compressed) + 2 files of wrapper code |
+| Container user | `appuser` (uid 1000) — the wrapper entrypoint is root for the ~1 s chown step only |
+| Persistence | one Railway volume at `/app/data` (SQLite DB + RAG corpus + generated media) |
+| LLM providers | DeepSeek, OpenAI, Gemini, OpenRouter/OrcaRouter, 302.AI, Volc, Aliyun, chatAnyWhere, or any OpenAI-compatible endpoint — pick one via `TYPE` |
+| Messaging platforms | Telegram, Discord, Slack, Lark/Feishu, DingDing, Work WeChat, QQ (OneBot), personal WeChat |
+| Admin surface | `/dashboard` on port 18080 (users, tokens, RAG, cron, MCP, logs, restart) |
+| Cost profile | Hobby $3 / 256 MB or 512 MB instance is comfortable; no companion services |
+| Egress | LLM + bot APIs over outbound HTTPS; optional `LLM_PROXY` / `ROBOT_PROXY` for region-restricted endpoints |
 
 ## Ports
 
