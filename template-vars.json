@@ -1,0 +1,391 @@
+{
+  "$schema": "https://railway.com/template-schema.json",
+  "variables": [
+    {
+      "key": "TELEGRAM_BOT_TOKEN",
+      "displayName": "Telegram Bot Token",
+      "description": "Telegram bot token from @BotFather. Required for Telegram platform",
+      "example": "1234567890:AA...",
+      "required": true,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "DISCORD_BOT_TOKEN",
+      "displayName": "Discord Bot Token",
+      "description": "Discord bot application token",
+      "example": "MTU2ND...AAA",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "SLACK_BOT_TOKEN",
+      "displayName": "Slack Bot Token (xoxb-...)",
+      "description": "Slack bot token for Socket Mode",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "SLACK_APP_TOKEN",
+      "displayName": "Slack App Token (xapp-...)",
+      "description": "Slack app-level token for Socket Mode",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "LARK_APP_ID",
+      "displayName": "Lark/Feishu App ID",
+      "description": "Lark or Feishu app id",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "LARK_APP_SECRET",
+      "displayName": "Lark/Feishu App Secret",
+      "description": "Lark or Feishu app secret",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "DING_CLIENT_ID",
+      "displayName": "DingDing Client ID",
+      "description": "DingDing client ID (AppKey)",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "DING_CLIENT_SECRET",
+      "displayName": "DingDing Client Secret",
+      "description": "DingDing client secret (AppSecret)",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "COM_WECHAT_TOKEN",
+      "displayName": "Work WeChat Token",
+      "description": "WeChat for Work API token",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "COM_WECHAT_CORP_ID",
+      "displayName": "Work WeChat Corp ID",
+      "description": "WeChat for Work corp_id",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "COM_WECHAT_SECRET",
+      "displayName": "Work WeChat Secret",
+      "description": "WeChat for Work secret",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "COM_WECHAT_AGENT_ID",
+      "displayName": "Work WeChat Agent ID",
+      "description": "WeChat for Work agentid of the bot",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "COM_WECHAT_ENCODING_AES_KEY",
+      "displayName": "Work WeChat EncodingAESKey",
+      "description": "WeChat for Work message encryption key (43 chars)",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "WECHAT_APP_ID",
+      "displayName": "WeChat App ID",
+      "description": "Personal WeChat (wechaty) appId",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "WECHAT_APP_SECRET",
+      "displayName": "WeChat App Secret",
+      "description": "Personal WeChat auth secret",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "WECHAT_TOKEN",
+      "displayName": "WeChat Callback Token",
+      "description": "WeChat callback token",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "WECHAT_ENCODING_AES_KEY",
+      "displayName": "WeChat EncodingAESKey",
+      "description": "WeChat message AES key (43 chars)",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "QQ_APP_ID",
+      "displayName": "QQ APP ID",
+      "description": "QQ/OneBot APP_ID",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "QQ_APP_SECRET",
+      "displayName": "QQ APP Secret",
+      "description": "QQ/OneBot APP secret",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "QQ_ONEBOT_HTTP_SERVER",
+      "displayName": "OneBot HTTP Server",
+      "description": "Where to POST OneBot events",
+      "example": "http://onebot:3000",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "TYPE",
+      "displayName": "LLM Provider",
+      "description": "Which LLM to use. Must match the token you provide. Values: deepseek, openai, gemini, openrouter, orcarouter, ai302, vol, aliyun, chatanywhere",
+      "required": true,
+      "type": "enumeration",
+      "allowedValues": ["deepseek", "openai", "gemini", "openrouter", "orcarouter", "ai302", "vol", "aliyun", "chatanywhere"],
+      "value": "deepseek"
+    },
+    {
+      "key": "DEEPSEEK_TOKEN",
+      "displayName": "DeepSeek API Key",
+      "description": "DeepSeek API key (sk-...). Provide matching TOKEN if TYPE=deepseek",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "OPENAI_TOKEN",
+      "displayName": "OpenAI API Key",
+      "description": "OpenAI API key (sk-...). Provide matching TOKEN if TYPE=openai",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "GEMINI_TOKEN",
+      "displayName": "Google Gemini API Key",
+      "description": "Google AI Studio / Gemini API key",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "OPEN_ROUTER_TOKEN",
+      "displayName": "OpenRouter API Key",
+      "description": "OpenRouter token (sk-or-...)",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "ORCAROUTER_TOKEN",
+      "displayName": "OrcaRouter Token",
+      "description": "OrcaRouter token",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "AI_302_TOKEN",
+      "displayName": "302.AI Token",
+      "description": "302.AI token",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "CHAT_ANY_WHERE_TOKEN",
+      "displayName": "chatAnyWhere Token",
+      "description": "chatAnyWhere token",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "DEFAULT_MODEL",
+      "displayName": "Default LLM Model",
+      "description": "Optional model name to override the provider default. Leave empty to use provider default.",
+      "example": "deepseek-chat, gpt-4o, gemini-2.0-flash, claude-3-5-sonnet",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "LLM_PROXY",
+      "displayName": "LLM Egress Proxy",
+      "description": "HTTP(S) proxy used for LLM API calls (needed for providers blocked in China from Railway)",
+      "example": "http://127.0.0.1:7890",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "ROBOT_PROXY",
+      "displayName": "Bot Egress Proxy",
+      "description": "HTTP(S) proxy used for bot API calls (Telegram, Discord, Slack, Lark, etc.)",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "TOKEN_PER_USER",
+      "displayName": "Per-user Token Budget",
+      "description": "LLM tokens allowed per chat user before refusal. 0 = unlimited",
+      "required": false,
+      "type": "number",
+      "value": "10000"
+    },
+    {
+      "key": "MAX_USER_CHAT",
+      "displayName": "Max Concurrent Chats per User",
+      "description": "Parallel in-flight chats a single user can hold. Default 2",
+      "required": false,
+      "type": "number",
+      "value": "2"
+    },
+    {
+      "key": "MAX_QA_PAIR",
+      "displayName": "Max Context Pairs",
+      "description": "Recent QA pairs retained in the LLM context window. Default 100",
+      "required": false,
+      "type": "number",
+      "value": "100"
+    },
+    {
+      "key": "BOT_NAME",
+      "displayName": "Bot Display Name",
+      "description": "Optional friendly name for the bot shown in messages",
+      "example": "michael-hx470-secretary",
+      "required": false,
+      "type": "string",
+      "value": "MuseBot"
+    },
+    {
+      "key": "LANG",
+      "displayName": "Language",
+      "description": "Language for built-in prompts. Values: en, chinese, russian",
+      "required": false,
+      "type": "enumeration",
+      "allowedValues": ["en", "chinese", "russian"],
+      "value": "en"
+    },
+    {
+      "key": "CHARACTER",
+      "displayName": "Character / System Prompt",
+      "description": "Free-form persona or system prompt for the assistant (optional)",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "IS_STREAMING",
+      "displayName": "Stream LLM Responses",
+      "description": "true = token-by-token streaming. false = wait for full reply",
+      "required": false,
+      "type": "boolean",
+      "value": "true"
+    },
+    {
+      "key": "SMART_MODE",
+      "displayName": "Smart Mode",
+      "description": "true routes short questions without history, keeps long-context pairs, etc.",
+      "required": false,
+      "type": "boolean",
+      "value": "true"
+    },
+    {
+      "key": "USE_TOOLS",
+      "displayName": "Enable MCP Tools",
+      "description": "true = MuseBot exposes MCP (Model Context Protocol) tools to the LLM via function call",
+      "required": false,
+      "type": "boolean",
+      "value": "true"
+    },
+    {
+      "key": "DB_TYPE",
+      "displayName": "Storage Engine",
+      "description": "sqlite3 (default, zero-config, recommended) or mysql",
+      "required": false,
+      "type": "enumeration",
+      "allowedValues": ["sqlite3", "mysql"],
+      "value": "sqlite3"
+    },
+    {
+      "key": "DB_CONF",
+      "displayName": "Storage Path / DSN",
+      "description": "Path for SQLite or DSN for MySQL. On Railway keep the volume-backed default.",
+      "example": "/app/data/muse_bot.db  (recommended) or root:admin@tcp(...)",
+      "required": false,
+      "type": "string",
+      "value": "/app/data/muse_bot.db"
+    },
+    {
+      "key": "KNOWLEDGE_PATH",
+      "displayName": "RAG Knowledge Directory",
+      "description": "Local directory scanned for documents (RAG context). On Railway: /app/data/knowledge",
+      "required": false,
+      "type": "string",
+      "value": "/app/data/knowledge"
+    },
+    {
+      "key": "IMAGE_PATH",
+      "displayName": "Media Directory",
+      "description": "Directory for generated/processed images",
+      "required": false,
+      "type": "string",
+      "value": "/app/data/image"
+    },
+    {
+      "key": "VECTOR_DB_TYPE",
+      "displayName": "Vector Backend",
+      "description": "local (built-in), qdrant, chroma, weaviate, milvus, etc.",
+      "required": false,
+      "type": "string",
+      "value": "local"
+    },
+    {
+      "key": "ALLOWED_USER_IDS",
+      "displayName": "Whitelist User IDs",
+      "description": "Comma-separated list of chat user IDs allowed to use the bot. Empty = allow all. 0 = block all.",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "ALLOWED_GROUP_IDS",
+      "displayName": "Whitelist Group IDs",
+      "description": "Comma-separated group chat IDs allowed. Empty = allow all. 0 = block all.",
+      "required": false,
+      "type": "string",
+      "value": ""
+    }
+  ]
+}
