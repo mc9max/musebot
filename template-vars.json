@@ -430,6 +430,24 @@
       "required": false,
       "type": "string",
       "value": ""
+    },
+    {
+      "key": "ADMIN_USER",
+      "displayName": "Admin Username",
+      "description": "Dashboard admin username. Default: admin. Set together with ADMIN_PASSWORD to override the built-in insecure default.",
+      "example": "admin",
+      "required": false,
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "ADMIN_PASSWORD",
+      "displayName": "Admin Password",
+      "description": "Dashboard admin password. Default: admin (insecure!). Set a strong password here for production use. Replaces the admin/admin seed on first boot.",
+      "example": "",
+      "required": false,
+      "type": "string",
+      "value": ""
     }
   ]
 }

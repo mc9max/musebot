@@ -118,5 +118,13 @@
   "OPEN_ROUTER_TOKEN": {
     "value": "",
     "description": "OpenRouter API key (required when TYPE=openrouter)."
+  },
+  "ADMIN_USER": {
+    "value": "",
+    "description": "Optional. Dashboard admin username (default: admin). Set together with ADMIN_PASSWORD to override the built-in admin/admin login."
+  },
+  "ADMIN_PASSWORD": {
+    "value": "",
+    "description": "Optional. Dashboard admin password (default: admin). Set together with ADMIN_USER. Minimum 6 characters recommended. This replaces the insecure admin/admin default on first boot."
   }
 }

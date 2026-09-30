@@ -5,8 +5,8 @@
       "name": "musebot",
       "volume": true,
       "mountPath": "/app/data",
-      "domainPort": 36060,
-      "healthcheckPath": "/pong",
+      "domainPort": 18080,
+      "healthcheckPath": "/",
       "healthcheckTimeout": 60,
       "restartPolicyType": "ON_FAILURE",
       "variables": {
@@ -58,7 +58,9 @@
         "LLM_OPTION_PARAM": "${LLM_OPTION_PARAM}",
         "ROBOT_PROXY": "${ROBOT_PROXY}",
         "ALLOWED_USER_IDS": "${ALLOWED_USER_IDS}",
-        "ALLOWED_GROUP_IDS": "${ALLOWED_GROUP_IDS}"
+        "ALLOWED_GROUP_IDS": "${ALLOWED_GROUP_IDS}",
+        "ADMIN_USER": "${ADMIN_USER}",
+        "ADMIN_PASSWORD": "${ADMIN_PASSWORD}"
       }
     }
   ]

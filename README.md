@@ -10,9 +10,9 @@ This Lite template ships the whole system in **one container** (the official `ja
 - LLM-agnostic: DeepSeek, OpenAI, Gemini, OpenRouter, OrcaRouter, 302.AI, Volc, Aliyun, chatAnyWhere, or any OpenAI-compatible endpoint — set `TYPE` + matching token
 - **RAG**: drop markdown/PDF/text into `KNOWLEDGE_PATH` and the bot grounds replies in *your* documents
 - **Cron**: schedule "good morning" briefings or any LLM prompt on a crontab expression via the admin API
-- **MCP tools**: point `MCP_CONF_PATH` at an MCP server and MuseBot exposes its tools to the LLM as function calls
+- **MCP tools**: point the MCP config at an MCP server and MuseBot exposes its tools to the LLM as function calls
 - **Voice in / voice + image + video out** on Volc / Gemini / OpenAI / Aliyun / 302.AI engines
-- **Admin dashboard** at :18080 (`/dashboard`) — manage users, tokens, records, RAG, cron, MCP, logs, and restart the bot remotely
+- **Admin dashboard** at port 18080 — manage users, tokens, records, RAG, cron, MCP, logs, and restart the bot remotely (`ADMIN_USER`/`ADMIN_PASSWORD` set the login)
 
 ## Why Deploy
 
@@ -53,14 +53,27 @@ The template ships a minimal `Dockerfile` that starts from the official `jackyin
 | Persistence | one Railway volume at `/app/data` (SQLite DB + RAG corpus + generated media) |
 | LLM providers | DeepSeek, OpenAI, Gemini, OpenRouter/OrcaRouter, 302.AI, Volc, Aliyun, chatAnyWhere, or any OpenAI-compatible endpoint — pick one via `TYPE` |
 | Messaging platforms | Telegram, Discord, Slack, Lark/Feishu, DingDing, Work WeChat, QQ (OneBot), personal WeChat |
-| Admin surface | `/dashboard` on port 18080 (users, tokens, RAG, cron, MCP, logs, restart) |
+| Admin surface | port 18080 (login via `ADMIN_USER`/`ADMIN_PASSWORD`, default admin/admin) |
 | Cost profile | Hobby $3 / 256 MB or 512 MB instance is comfortable; no companion services |
 | Egress | LLM + bot APIs over outbound HTTPS; optional `LLM_PROXY` / `ROBOT_PROXY` for region-restricted endpoints |
 
 ## Ports
 
 - **36060** — main bot HTTP API (`/pong`, `/communicate`, `/com/wechat`, `/wechat`, `/qq`, `/onebot`, `/rag/*`, `/cron/*`, `/mcp/*`, `/user/*`, `/log`, `/restart`, `/stop`)
-- **18080** — admin dashboard (`/dashboard`) — manage users, tokens, records, RAG, cron, MCP, logs, restart the bot remotely
+- **18080** — admin dashboard (SPA at `/`) — manage users, tokens, records, RAG, cron, MCP, logs, restart the bot remotely. **There is no `/` route on the bot API (36060) — point your domain at 18080 for the UI.**
+
+## Dashboard credentials
+
+The admin dashboard ships with a hard-coded upstream default of **`admin` / `admin`** (MD5-seeded into the database on first boot). Anyone with the dashboard URL can log in as it stands, so for real deployments set your own:
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `ADMIN_USER` | *(leave blank → `admin`)* | Dashboard username. |
+| `ADMIN_PASSWORD` | *(leave blank → `admin`)* | Dashboard password (min 6 chars recommended). |
+
+When **both** are set, the pre-boot bootstrap writes your credential into the database and the insecure `admin/admin` seed never exists — verified on a fresh first boot (custom password logs in, `admin/admin` does not). Leaving both blank keeps the upstream default; you can still change the password later from *Dashboard → Users*.
+
+Note: the default only applies to **SQLite**. With `DB_TYPE=mysql`, set the credential from the UI after first login (the MySQL path is not bootstrapped).
 
 ## Dependencies for MuseBot Lite
 
